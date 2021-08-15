@@ -29,7 +29,8 @@ function renderButton(h, disabled, slot, isPrev, { isVertical, isRTL }, onClick)
         'is-disabled': disabled
       },
       attrs: {
-        type: 'button'
+        type: 'button',
+        aria-label: `${isPrev ? 'previous' : 'next'}`
       },
       on: {
         click: onClick

@@ -66,7 +66,8 @@ export default {
         class: classes,
         style: this.style,
         attrs: {
-          'aria-hidden': !this.isActive
+          'aria-hidden': !this.isActive,
+          'tabindex': !this.isActive ? -1 : undefined
         }
       },
       children
