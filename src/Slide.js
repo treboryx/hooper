@@ -1,4 +1,4 @@
-import { normalizeChildren } from './utils';
+import { normalizeChildren, focusableHTMLElements } from './utils';
 import './styles/slide.css';
 
 export default {
@@ -48,6 +48,31 @@ export default {
       return this.index === this.$hooper.currentSlide;
     }
   },
+  methods: {
+    removeTabindex(node) {
+      if (focusableHTMLElements.includes(node.tag)) {
+        node.data.attrs.tabindex = -1;
+      }
+    },
+    disableFocusIfInactive(children) {
+      // children may be undefined when called recursively
+      if (children) {
+        for (const child of children) {
+          this.removeTabindex(child);
+
+          // Recursively disable every focusable and inactive element of this child's children
+          if (child.children) {
+            for (const innerChild of child.children) {
+              this.removeTabindex(innerChild);
+              if (innerChild.children) {
+                this.disableFocusIfInactive(innerChild.children);
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   render(h) {
     const classes = {
       'hooper-slide': true,
@@ -60,14 +85,17 @@ export default {
 
     const children = normalizeChildren(this);
 
+    if (!this.isActive) {
+      this.disableFocusIfInactive(children);
+    }
+
     return h(
       'li',
       {
         class: classes,
         style: this.style,
         attrs: {
-          'aria-hidden': !this.isActive,
-          'tabindex': !this.isActive ? -1 : undefined
+          'aria-hidden': !this.isActive
         }
       },
       children
