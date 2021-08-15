@@ -1,13 +1,13 @@
 {
-  "name": "hooper",
-  "version": "0.3.4",
+  "name": "@rowboat/hooper",
+  "version": "0.3.5",
   "description": "A customizable accessible carousel slider optimized for Vue",
   "module": "dist/hooper.esm.js",
   "unpkg": "dist/hooper.js",
   "main": "dist/hooper.js",
   "scripts": {
     "lint": "eslint ./src --fix",
-    "build": "NODE_ENV=production node scripts/build",
+    "build": "node scripts/build",
     "deploy": "bash scripts/deploy.sh",
     "dev": "node scripts/watcher",
     "docs:dev": "vuepress dev docs",
@@ -67,6 +67,5 @@
       "git add",
       "jest --maxWorkers=1 --bail --findRelatedTests"
     ]
-  },
-  "dependencies": {}
+  }
 }

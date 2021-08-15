@@ -30,7 +30,7 @@ function renderButton(h, disabled, slot, isPrev, { isVertical, isRTL }, onClick)
       },
       attrs: {
         type: 'button',
-        aria-label: `${isPrev ? 'previous' : 'next'}`
+        'aria-label': `${isPrev ? 'previous' : 'next'}`
       },
       on: {
         click: onClick
@@ -56,8 +56,10 @@ export default {
       }
 
       if (this.$hooper.config.trimWhiteSpace) {
-        return this.$hooper.currentSlide
-          === (this.$hooper.slidesCount - Math.min(this.$hooper.config.itemsToShow, this.$hooper.slidesCount));
+        return (
+          this.$hooper.currentSlide ===
+          this.$hooper.slidesCount - Math.min(this.$hooper.config.itemsToShow, this.$hooper.slidesCount)
+        );
       }
 
       return this.$hooper.currentSlide === this.$hooper.slidesCount - 1;
